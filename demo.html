@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,minimal-ui" name="viewport">
+        <title>msg DEMO</title>
+        <script type="text/javascript" src="./js/msg.min.js"></script>
+    </head>
+    <body>
+    <button id="alert">alert</button>
+    <button id="tips">tips</button>
+    <button id="confirm">confirm</button>
+    </body>
+    <script type="text/javascript">
+    var alertBtn = document.getElementById("alert");
+    var tipsBtn = document.getElementById("tips");
+    var confirmBtn = document.getElementById("confirm");
+    alertBtn.addEventListener("click",function(){
+    	msg.alert("这是一个alert!",function(){
+    		msg.tips("确定！")
+    	})
+    });
+    tipsBtn.addEventListener("click",function(){
+    	msg.tips("这是一个tips")
+    });
+    confirmBtn.addEventListener("click",function(){
+    	msg.confirm({
+    		context : "你确定要xxoo？",
+    		btnCount : 2,
+    		confirm : function(){
+    			msg.tips("要！");
+    		},
+    		cancel : function(){
+    			msg.tips("不要！");
+    		},
+    		confirmText : "要",
+    		cancelText : "不要"
+    	})
+    });
+    </script>
+</html>
