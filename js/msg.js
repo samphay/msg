@@ -338,13 +338,6 @@
         open : function () {
             window.document.body.appendChild(this.modal);
             this.transform();
-            /*var Model = this;
-            setTimeout(function () {
-                /!*Model.Box.css({
-                    transform : "translate(-50%,-50%) scale(1)",
-                    WebkitTransform : "translate(-50%,-50%) scale(1)"
-                })*!/
-            },100)*/
         },
         close : function () {
             window.document.body.removeChild(
