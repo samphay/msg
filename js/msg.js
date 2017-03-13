@@ -62,7 +62,7 @@
     function CreateElement(tagName) {
         this.element = document.createElement(tagName.toUpperCase());
         return this;
-    };
+    }
     
     /**
      * @type {Object}
@@ -129,9 +129,11 @@
         Template.element.className = "Modal_Samphay";
         var m = {
         	transition:"all .2s",
-            transitionTimingFunction:"ease-out",
+            // transitionTimingFunction:"ease-out-in",
+            transitionTimingFunction:"cubic-bezier(0.68, -0.55, 0.27, 1.55)",
             WebkitTransition:"all .2s",
-            WebkitTransitionTimingFunction:"ease-out"
+            // WebkitTransitionTimingFunction:"ease-out-in"
+            WebkitTransitionTimingFunction:"cubic-bezier(0.68, -0.55, 0.27, 1.55)"
         };
         Template.css({
             position : "fixed",
@@ -148,8 +150,8 @@
             position : "absolute",
             left : "50%",
             top : "50%",
-            transform : "translate(-50%,-50%)",
-            WebkitTransform : "translate(-50%,-50%)",
+            transform : "translate(-50%,-50%) scale(1)",
+            WebkitTransform : "translate(-50%,-50%) scale(1)",
             width : "280px",
             maxWidth : "280px",
             height : "auto",
@@ -300,8 +302,49 @@
             });
             Modal.open();
         },
+        transform : function () {
+            var Model = this;
+            var transform = Model.Box.element.style.transform.split(" ");
+            var I = -1;
+            var newTransform = [];
+            transform.map(function (v, i) {
+                if(v.indexOf("scale")>-1){
+                    transform[i] = "scale(0)";
+                    I = i;
+                }
+            });
+            newTransform = extend(newTransform,transform);
+            if(I>-1){
+                newTransform[I] = "scale(1)";
+            }else{
+                transform.push("scale(0)");
+                newTransform.push("scale(1)");
+            }
+            transform = transform.join(" ");
+            newTransform = newTransform.join(" ");
+            Model.Box.css({
+                transform : transform,
+                WebkitTransform : transform,
+                opacity : 0
+            });
+            setTimeout(function () {
+                Model.Box.css({
+                    transform : newTransform,
+                    WebkitTransform : newTransform,
+                    opacity : 1
+                });
+            },10);
+        },
         open : function () {
             window.document.body.appendChild(this.modal);
+            this.transform();
+            /*var Model = this;
+            setTimeout(function () {
+                /!*Model.Box.css({
+                    transform : "translate(-50%,-50%) scale(1)",
+                    WebkitTransform : "translate(-50%,-50%) scale(1)"
+                })*!/
+            },100)*/
         },
         close : function () {
             window.document.body.removeChild(
