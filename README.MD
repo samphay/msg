@@ -6,4 +6,9 @@ msg是一款无需加载任何js库的独立js插件。仿照IOS的alert样式�
 
 ## How to use
 
-引用`<script src="./js/msg.min.js"></script>`便可方便使用`msg`对象
+引用 `<script src="./js/msg.min.js"></script>` 便可方便使用 `msg` 对象:
+> ```javascript
+    msg.alert("alert内容",function(){
+        //alert 回调
+    });
+ ```
